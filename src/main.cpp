@@ -1,9 +1,5 @@
 // include OpenGL
-#ifdef __WXMAC__
-#include "OpenGL/glew.h"
-#else
 #include <GL/glew.h>
-#endif
 
 #include "main.h"
 
@@ -20,6 +16,8 @@
 #include <iostream>
 
 #include <png.h>
+
+using std::cout, std::endl;
 
 class MyApp: public wxApp
 {
@@ -263,7 +261,7 @@ void BasicGLPane::setupGL()
     GLenum err = glewInit();
 
     glEnable              ( GL_DEBUG_OUTPUT );
-    glDebugMessageCallback( (GLDEBUGPROC) MessageCallback, 0 );
+//    glDebugMessageCallback( (GLDEBUGPROC) MessageCallback, 0 );
 
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
@@ -414,6 +412,8 @@ void BasicGLPane::setupGL()
 
 void BasicGLPane::render( wxPaintEvent& evt )
 {
+
+    cout << "render " << endl;
     if(!IsShown()) return;
  
     wxGLCanvas::SetCurrent(*m_context);
@@ -429,7 +429,7 @@ void BasicGLPane::render( wxPaintEvent& evt )
  
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-    std::cout << glGetString(GL_VERSION);
+    std::cout << glGetString(GL_VERSION) << endl;;
 
     SwapBuffers();
 }
